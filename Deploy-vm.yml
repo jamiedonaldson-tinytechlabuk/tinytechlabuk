@@ -17,6 +17,7 @@
       datacenter: "TinyTechLabUK"
       folder: "/Ansible_Builds"
       cluster: "TinyTechLabUK"
+      esxi_hostname: "esxi-2.tinytechlab.uk"
       datastore: "ESXi 2 - Data"
       hardware:
         memory_mb: "4096"
@@ -31,7 +32,7 @@
         ip: "10.15.0.133"
         netmask: "255.255.255.0"
         gateway: "10.15.0.1"
-        type: "VMXNET3"
+        device_type: "vmxnet3"
         dns_servers:
         - 10.15.0.240
         - 10.15.0.241

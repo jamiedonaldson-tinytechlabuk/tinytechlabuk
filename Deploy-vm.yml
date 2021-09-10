@@ -9,13 +9,13 @@
   - name: Clone the template with static network
     vmware_guest:
       hostname: "vcenter.tinytechlab.uk"
-      username: "administrator@vsphere.local"
-      password: "D0n4ld50n20!9"
+      username: "ansible@vsphere.local"
+      password: "<XxM86}}B~raH_p8"
       validate_certs: False
       name: "TT-Ansible-Test"
       template: "TTL-Server-2019-Template"
       datacenter: "TinyTechLabUK"
-      folder: /TinyTechLabUK/Ansible_Builds
+      folder: "/TinyTechLabUK/Ansible_Builds"
       cluster: "TinyTechLabUK"
       datastore: "ESXi 2 - Data"
       hardware:

@@ -36,4 +36,5 @@
         dns_servers:
         - 10.15.0.240
         - 10.15.0.241
+      start_connected: yes
       state: poweredon

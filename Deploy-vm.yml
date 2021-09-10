@@ -7,9 +7,9 @@
 #################### Deploy from VMware Template ####################
 #####################################################################
   - name: Clone the template with static network
-      hostname: '{{ vcenter }}'
-      username: '{{ lookup("env", "VMWARE_USER") }}'
-      password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
+      hostname: "{{ vcenter }}"
+      username: "{{ lookup("env", "VMWARE_USER") }}"
+      password: "{{ lookup("env", "VMWARE_PASSWORD") }}"
       validate_certs: False
       name: "TT-Ansible-Test"
       template: "TTL-Server-2019-Template"

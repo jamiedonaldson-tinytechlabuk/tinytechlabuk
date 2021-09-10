@@ -33,6 +33,5 @@
         type "VMXNET3"
         dns_servers
         - 10.15.0.240
-        - 10.15.0.241
     delegate_to localhost
   

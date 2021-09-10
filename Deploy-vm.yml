@@ -37,4 +37,4 @@
         - 10.15.0.240
         - 10.15.0.241
     delegate_to: localhost
-    when: vm_net_type == "static"
+  

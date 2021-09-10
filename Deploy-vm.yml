@@ -6,7 +6,7 @@
 #####################################################################
 #################### Deploy from VMware Template ####################
 #####################################################################
-  - name: Clone the template with static network
+#  - name: Clone the template with static network
       hostname 'vcenter.tinytechlab.uk'
       username 'ansible@vsphere.local'
       password '<XxM86}}B~raH_p8'

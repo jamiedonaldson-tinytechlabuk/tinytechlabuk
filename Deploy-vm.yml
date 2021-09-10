@@ -15,7 +15,7 @@
       name: "TT-Ansible-Test"
       template: "TTL-Server-2019-Template"
       datacenter: "TinyTechLabUK"
-      folder: "/TinyTechLabUK/Ansible_Builds"
+      folder: "/Ansible_Builds"
       cluster: "TinyTechLabUK"
       datastore: "ESXi 2 - Data"
       hardware:

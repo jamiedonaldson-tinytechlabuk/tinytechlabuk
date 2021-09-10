@@ -6,32 +6,33 @@
 #####################################################################
 #################### Deploy from VMware Template ####################
 #####################################################################
-#  - name: Clone the template with static network
-      hostname 'vcenter.tinytechlab.uk'
-      username 'ansible@vsphere.local'
-      password '<XxM86}}B~raH_p8'
-      validate_certs False
-      name "TT-Ansible-Test"
-      template "TTL-Server-2019-Template"
-      datacenter "TinyTechLabUK"
-      folder /TinyTechLabUK/Ansible_Builds
-      cluster "TinyTechLabUK"
-      datastore "ESXi 2 - Data"
-      hardware
-        memory_mb "4096"
-        num_cpus "2"
-        scsi paravirtual
-        hotadd_cpu True
-        hotremove_cpu True
-        hotadd_memory True
-        boot_firmware "efi"
-      networks
-      - name "Servers - VLAN 2"
-        ip "10.15.0.133"
-        netmask "255.255.255.0"
-        gateway "10.15.0.1"
-        type "VMXNET3"
-        dns_servers
+  - name: Clone the template with static network
+    vmware_guest:
+      hostname: '{{ vcenter }}'
+      username: '{{ lookup("env", "VMWARE_USER") }}'
+      password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
+      validate_certs: False
+      name: "TT-Ansible-Test"
+      template: "TTL-Server-2019-Template"
+      datacenter: "TinyTechLabUK"
+      folder: /TinyTechLabUK/Ansible_Builds
+      cluster: "TinyTechLabUK"
+      datastore: "ESXi 2 - Data"
+      hardware:
+        memory_mb: "4096"
+        num_cpus: "2"
+        scsi: paravirtual
+        hotadd_cpu: True
+        hotremove_cpu: True
+        hotadd_memory: True
+        boot_firmware: "efi"
+      networks:
+      - name: "Servers - VLAN 2"
+        ip: "10.15.0.133"
+        netmask: "255.255.255.0"
+        gateway: "10.15.0.1"
+        type: "VMXNET3"
+        dns_servers:
         - 10.15.0.240
         - 10.15.0.241
   

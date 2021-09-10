@@ -32,9 +32,9 @@
         ip: "10.15.0.133"
         netmask: "255.255.255.0"
         gateway: "10.15.0.1"
+        start_connected: yes
         #device_type: "vmxnet3"
         dns_servers:
         - 10.15.0.240
         - 10.15.0.241
-      start_connected: yes
       state: poweredon

@@ -34,7 +34,7 @@
         type: "{{ vm_net_type }}"
         dns_servers: "{{ vm_dns }}"
       customization:
-        autologon: true
+ #       autologon: true
         hostname: "{{ vm_hostname }}"
         dns_servers:
         - "{{ vm_dns }}"
@@ -75,7 +75,7 @@
         type: "{{ vm_net_type }}"
         dns_servers: "{{ vm_dns | default(omit) }}"
       customization:
-        autologon: true
+ #       autologon: true
         hostname: "{{ vm_hostname }}"
         dns_servers:
         - "{{ vm_dns }}"

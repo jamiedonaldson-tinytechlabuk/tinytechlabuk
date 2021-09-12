@@ -10,7 +10,7 @@
     vmware_guest:
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'
-      password: '{{ lookup("env", "VMWARE_PASSWORD") }}'"
+      password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
       validate_certs: False
       name: "TT-Ansible-Test"
       template: "TTL-Server-2019-Template"

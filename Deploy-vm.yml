@@ -39,8 +39,8 @@
         dns_servers:
         - "{{ vm_dns }}"
         domain: internal.tinytechlab.uk
-        username: "svcacctj@internal.tinytechlab.uk"
-        password: "{{ Domain_Join_Account }}"
+        username: "{{ Domain_Join_Account_Username }}"
+        password: "{{ Domain_Join_Account_Password }}"
         runonce:
         - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon
@@ -80,8 +80,8 @@
         dns_servers:
         - "{{ vm_dns }}"
         domain: uk.wal-mart.com
-        username: "svcacctj@internal.tinytechlab.uk"
-        password: "{{ Domain_Join_Account }}"
+        username: "{{ Domain_Join_Account_Username }}"
+        password: "{{ Domain_Join_Account_Password }}"
         runonce:
         - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon

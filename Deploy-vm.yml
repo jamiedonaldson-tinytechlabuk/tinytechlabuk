@@ -12,8 +12,8 @@
       username: '{{ lookup("env", "VMWARE_USER") }}'
       password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
       validate_certs: False
-      name: "TT-Ansible-Test"
-      template: "TTL-Server-2019-Template"
+      name: "{{ vm_hostname }}"
+      template: "{{ template_name }}"
       datacenter: "TinyTechLabUK"
       folder: "/Ansible_Builds"
       #cluster: "TinyTechLabUK"

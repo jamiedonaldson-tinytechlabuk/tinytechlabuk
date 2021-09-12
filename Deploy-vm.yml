@@ -14,27 +14,87 @@
       validate_certs: False
       name: "{{ vm_hostname }}"
       template: "{{ template_name }}"
-      datacenter: "TinyTechLabUK"
-      folder: "/Ansible_Builds"
-      #cluster: "TinyTechLabUK"
-      esxi_hostname: "esxi-2.tinytechlab.uk"
-      datastore: "ESXi 2 - Data"
+      datacenter: "{{ datacenter_name }}"
+      folder: /{{ datacenter_name }}/vm
+      cluster: "{{ cluster_name }}"
+      datastore: "{{ datastore }}"
       hardware:
-        memory_mb: "4096"
-        num_cpus: "2"
+        memory_mb: "{{ vm_memory }}"
+        num_cpus: "{{ vm_cpus }}"
         scsi: paravirtual
         hotadd_cpu: True
         hotremove_cpu: True
         hotadd_memory: True
         boot_firmware: "efi"
       networks:
-      - name: "Servers - VLAN 2"
-        ip: "10.15.0.133"
-        netmask: "255.255.255.0"
-        gateway: "10.15.0.1"
-        start_connected: yes
-        #device_type: "vmxnet3"
+      - name: "{{ vm_network }}"
+        ip: "{{ vm_ip }}"
+        netmask: "{{ vm_netmask }}"
+        gateway: "{{ vm_gw }}"
+        type: "{{ vm_net_type }}"
+        dns_servers: "{{ vm_dns }}"
+      customization:
+        autologon: true
+        hostname: "{{ vm_hostname }}"
         dns_servers:
-        - 10.15.0.240
-        - 10.15.0.241
+        - "{{ vm_dns }}"
+        domain: internal.tinytechlab.uk
+        password: "{{ ansible_password }}"
+        runonce:
+        - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon
+      wait_for_ip_address: yes
+      wait_for_customization: yes
+    delegate_to: localhost
+    when: vm_net_type == "static"
+    
+    
+  - name: Clone the template with dhcp network
+    vmware_guest:
+      hostname: '{{ lookup("env", "VMWARE_HOST") }}'
+      username: '{{ lookup("env", "VMWARE_USER") }}'
+      password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
+      validate_certs: False
+      name: "{{ vm_hostname }}"
+      template: "{{ template_name }}"
+      datacenter: "{{ datacenter_name }}"
+      folder: /{{ datacenter_name }}/vm
+      cluster: "{{ cluster_name }}"
+      datastore: "{{ datastore }}"
+      hardware:
+        memory_mb: "{{ vm_memory }}"
+        num_cpus: "{{ vm_cpus }}"
+        scsi: paravirtual
+        hotadd_cpu: True
+        hotremove_cpu: True
+        hotadd_memory: True
+        boot_firmware: "efi"
+      networks:
+      - name: "{{ vm_network }}"
+        type: "{{ vm_net_type }}"
+        dns_servers: "{{ vm_dns | default(omit) }}"
+      customization:
+        autologon: true
+        hostname: "{{ vm_hostname }}"
+        dns_servers:
+        - "{{ vm_dns }}"
+        domain: uk.wal-mart.com
+        password: "{{ ansible_password }}"
+        runonce:
+        - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
+      state: poweredon
+      wait_for_ip_address: yes
+      wait_for_customization: yes
+    register: result
+    delegate_to: localhost
+    when: vm_net_type == "dhcp"
+    
+  - name: Add host to group
+    add_host:
+      hostname: "{{ vm_ip }}{{ result.instance.ipv4 }}"
+      groups:
+      - newVMDeployment
+      
+  - name: Sleep for 60 seconds to give VM ample time to become reachable
+    wait_for:
+      timeout: 60

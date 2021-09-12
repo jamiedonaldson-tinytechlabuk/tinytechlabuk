@@ -9,8 +9,8 @@
   - name: Clone the template with static network
     vmware_guest:
       hostname: '{{ vcenter }}'
-      username: '{{ lookup("env", "VMWARE_USER") }}'
-      password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
+      username: 'ansible@vsphere.local'
+      password: '<XxM86}}B~raH_p8'
       validate_certs: False
       name: "TT-Ansible-Test"
       template: "TTL-Server-2019-Template"

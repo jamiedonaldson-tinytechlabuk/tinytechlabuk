@@ -17,7 +17,7 @@
       datacenter: "TinyTechLabUK"
       folder: /TinyTechLabUK/Ansible_Builds
       cluster: "TinyTechLabUK"
-      hostname: esxi-2.tinytechlab.uk
+      esxi_hostname: esxi-2.tinytechlab.uk
       datastore: "ESXi 2 - Data"
       hardware:
         memory_mb: "4096"

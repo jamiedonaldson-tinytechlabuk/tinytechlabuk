@@ -47,7 +47,7 @@
 #        joindomain: internal.tinytechlab.uk
 #        domainadmin: "svcacctj@internal.tinytechlab.uk"
 #        domainadminpassword: "{{ Domain_Join_Account_Username }}"
-        password: '{{ WORKGROUP_Administrator }}'
+#        password: '{{ WORKGROUP_Administrator }}'
 #      wait_for_ip_address: yes
 #      wait_for_customization: yes
 #        runonce:

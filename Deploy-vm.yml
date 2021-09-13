@@ -32,5 +32,7 @@
         netmask: "{{ vm_netmask }}"
         gateway: "{{ vm_gw }}"
         type: "{{ vm_net_type }}"
-        dns_servers: "{{ vm_dns }}"
+        dns_servers: "{{ vm_dns_1 }}"
+        dns_servers: "{{ vm_dns_2 }}"
+        dns_servers: "{{ vm_dns_3 }}"
       state: poweredon

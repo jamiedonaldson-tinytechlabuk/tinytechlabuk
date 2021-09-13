@@ -40,7 +40,7 @@
       customization:
         autologon: true
         autologoncount: 2
-#        hostname: "{{ vm_hostname }}"
+        hostname: "{{ vm_hostname }}"
         dns_servers:
         - "{{ vm_dns_1 }}"
         - "{{ vm_dns_2 }}"

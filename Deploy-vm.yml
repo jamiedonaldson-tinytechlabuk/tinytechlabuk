@@ -37,7 +37,7 @@
         dns_servers: "{{ vm_dns_3 }}"
       customization:
         autologon: true
-#        autologoncount: 2
+        autologoncount: 2
 #        hostname: "{{ vm_hostname }}"
 #        dns_servers:
 #        - "{{ vm_dns_1 }}"

@@ -37,9 +37,9 @@
         dns_servers: "{{ vm_dns_3 }}"
         connected: yes
         start_connected: yes
-#      customization:
-#        autologon: true
-#        autologoncount: 2
+      customization:
+        autologon: true
+        autologoncount: 2
 #        hostname: "{{ vm_hostname }}"
 #        dns_servers:
 #        - "{{ vm_dns_1 }}"

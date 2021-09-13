@@ -35,6 +35,8 @@
         dns_servers: "{{ vm_dns_1 }}"
         dns_servers: "{{ vm_dns_2 }}"
         dns_servers: "{{ vm_dns_3 }}"
+        connected: yes
+        start_connected: yes
       customization:
         autologon: true
         autologoncount: 2

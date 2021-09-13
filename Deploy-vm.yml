@@ -49,7 +49,7 @@
         joindomain: 'internal.tinytechlab.uk'
         domainadmin: 'svcacctj@internal.tinytechlab.uk'
         domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'
-#       password: '{{ lookup("env", "WORKGROUP_Administrator") }}'
+#       password: '{{ "WORKGROUP_Administrator") }}'
         timezone: 085 
         runonce:
           - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
@@ -58,41 +58,10 @@
 #####################################################################
 ######################## Domain Check & Join ########################
 #####################################################################
-
-- hosts: newVMDeployment
-  vars:
-    locationDist:
-      AH_Lab1: UKAH
-      UKDCA-Gen: UKDCA
-      UKDCB-Gen: UKDCB
-    location: '{{locationDist[datacenter_name | default("Unknown")] | default("") }}'
-  gather_facts: yes
-  tasks:
-    
-  - name: Test if computer is domain joined
-    win_shell: |
-      (gwmi win32_computersystem).partofdomain
-    register: isDomainJoined
-    when: join_domain == "YES"
-    
-  - name: Set fact for if computer is domain joined
-    set_fact:
-      domain_joined: "{{ isDomainJoined.stdout | regex_replace('(\\r\\n)','') }}"
-    when: join_domain == "YES"
-    
-  - name: Report that computer is domain joined
-    debug:
-      msg: "Computer is already joined to the domain."
-    when: domain_joined == true and join_domain == "YES"
-    
-  - name: Report that computer will be joined to the domain.
-    debug:
-      msg: "Computer is not joined to any domain, joining now.."
-    when: domain_joined == false and join_domain == "YES"
-    
+   
   - name: Join Domain
     win_shell: |
-      netdom join $env:computername /domain:internal.tinytechlab.uk /UserD:{{ lookup("env", "ANSIBLE_NET_USERNAME") }} /PasswordD:{{ lookup("env", "ANSIBLE_NET_PASSWORD") }} /ou:"OU\=Application,OU\=Walmart,OU\=Server,DC\=UK,DC\=Wal-Mart,DC\=com"
+      netdom join $env:computername /domain:internal.tinytechlab.uk /UserD:{{ lookup("env", " Domain_Join_Account_Username") }} /PasswordD:{{ lookup("env", " Domain_Join_Account_Username") }} /ou:"OU\=Application,OU\=Walmart,OU\=Server,DC\=UK,DC\=Wal-Mart,DC\=com"
     when: domain_joined == false and join_domain == "YES"
     
   - name: Report that machine will be rebooted

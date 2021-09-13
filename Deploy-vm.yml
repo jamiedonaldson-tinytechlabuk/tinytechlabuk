@@ -15,7 +15,7 @@
       name: "{{ vm_hostname }}"
       template: "{{ template_name }}"
       datacenter: "TinyTechLabUK"
-      folder: /TinyTechLabUK/Ansible_Builds
+      folder: /Ansible_Builds
       esxi_hostname: esxi-2.tinytechlab.uk
       datastore: "ESXi 2 - Data"
       hardware:

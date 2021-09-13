@@ -44,10 +44,9 @@
         - "{{ vm_dns_2 }}"
         - "{{ vm_dns_3 }}"
         dns_suffix: "internal.tinytechlab.uk"
-        domain: internal.tinytechlab.uk
+        joindomain: internal.tinytechlab.uk
         domainadmin: "svcacctj@internal.tinytechlab.uk"
         domainadminpassword: "{{ Domain_Join_Account_Username }}"
-        joindomain:
         password: "{{ WORKGROUP_Administrator }}"
       wait_for_ip_address: yes
       wait_for_customization: yes

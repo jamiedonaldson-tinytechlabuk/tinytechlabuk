@@ -26,6 +26,7 @@
         hotremove_cpu: True
         hotadd_memory: True
         boot_firmware: "efi"
+        type: "thin"
       networks:
       - name: "{{ vm_network }}"
         ip: "{{ vm_ip }}"

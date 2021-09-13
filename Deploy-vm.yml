@@ -44,7 +44,7 @@
         - "{{ vm_dns_3 }}"
         domain: uk.wal-mart.com
         username: "svcacctj@internal.tinytechlab.uk"
-        password: "{{ Domain_Join_Account_Password }}"
+        password: "wgqGG3ALqnjDaQ7tVcbu"
         runonce:
         - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon

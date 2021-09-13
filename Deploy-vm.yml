@@ -18,6 +18,7 @@
       folder: /Ansible_Builds
       esxi_hostname: '{{ esxi_hostname }}'
       datastore: "{{ vm_datastore }}"
+      type: "thin"
       hardware:
         memory_mb: "{{ vm_memory }}"
         num_cpus: "{{ vm_cpus }}"
@@ -26,7 +27,6 @@
         hotremove_cpu: True
         hotadd_memory: True
         boot_firmware: "efi"
-        type: "thin"
       networks:
       - name: "{{ vm_network }}"
         ip: "{{ vm_ip }}"
@@ -46,14 +46,11 @@
         - "{{ vm_dns_1 }}"
         - "{{ vm_dns_2 }}"
         - "{{ vm_dns_3 }}"
-#        dns_suffix: "internal.tinytechlab.uk"
-        joindomain: internal.tinytechlab.uk
+        joindomain: 'internal.tinytechlab.uk'
         domainadmin: 'svcacctj@internal.tinytechlab.uk'
         domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'
 #       password: '{{ lookup("env", "WORKGROUP_Administrator") }}'
-#       wait_for_customization: yes
-#       wait_for_customization_timeout: 3600
+        timezone: 085 
         runonce:
           - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon
-#    delegate_to: localhost

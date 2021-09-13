@@ -47,9 +47,9 @@
 #        - "{{ vm_dns_3 }}"
 #        dns_suffix: "internal.tinytechlab.uk"
         joindomain: internal.tinytechlab.uk
-        domainadmin: "svcacctj@internal.tinytechlab.uk"
+        domainadmin: '{{ lookup("env", "Domain_Join_Account_Username" }}'
         domainadminpassword: '{{ lookup("env", "Domain_Join_Account_Password" }}'
-        password: '{{ WORKGROUP_Administrator }}'
+        password: '{{ lookup("env", "WORKGROUP_Administrator" }}'
 #      wait_for_ip_address: yes
 #      wait_for_customization: yes
 #        runonce:

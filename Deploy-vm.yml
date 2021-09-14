@@ -33,27 +33,25 @@
         netmask: "{{ vm_netmask }}"
         gateway: "{{ vm_gw }}"
         type: "{{ vm_net_type }}"
-#        dns_servers: "{{ vm_dns_1 }}"
-#        dns_servers: "{{ vm_dns_2 }}"
-#        dns_servers: "{{ vm_dns_3 }}"
         connected: yes
         start_connected: yes
       customization:
         autologon: true
         autologoncount: 2
         hostname: "{{ vm_hostname }}"
-#        dns_servers:
-#        - "{{ vm_dns_1 }}"
-#        - "{{ vm_dns_2 }}"
-#        - "{{ vm_dns_3 }}"
-#        joindomain: 'internal.tinytechlab.uk'
-#        domainadmin: 'svcacctj@internal.tinytechlab.uk'
-#        domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'
-#       password: '{{ "WORKGROUP_Administrator") }}'
         runonce:
           - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon
 
+#- name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+#  ansible.windows.win_dns_client:
+#    adapter_names: '*'
+#    dns_servers:
+#    - 10.15.0.240
+#    - 10.15.0.241
+#    - 10.10.192.240
+#    log_path: C:\logs\dns_log.txt
+#
 #####################################################################
 ######################## Domain Check & Join ########################
 #####################################################################
@@ -61,20 +59,20 @@
 # and will use the passed credentials to join domain if necessary.
 # Ansible connection should use local credentials if possible.
 # If a reboot is required, the second task will trigger one and wait until the host is available.
-- hosts: localhost
-  gather_facts: no
-  tasks:
-  - ansible.windows.win_domain_membership:
-      dns_domain_name: 'internal.tinytechlab.uk'
-      hostname: "{{ vm_hostname }}"
-      domain_admin_user: svcacctj@internal.tinytechlab.uk
-      domain_admin_password: wgqGG3ALqnjDaQ7tVcbu
-      #domain_ou_path: "OU\=Virtual_Servers,OU\=TinyTechLabUK,DC\=internal,DC\=tinytechlab,DC\=uk"
-      state: domain
-    register: domain_state
-
-  - ansible.windows.win_reboot:
-    when: domain_state.reboot_required
-
+#- hosts: localhost
+#  gather_facts: no
+#  tasks:
+#  - ansible.windows.win_domain_membership:
+#      dns_domain_name: 'internal.tinytechlab.uk'
+#      hostname: "{{ vm_hostname }}"
+#      domain_admin_user: svcacctj@internal.tinytechlab.uk
+#      domain_admin_password: wgqGG3ALqnjDaQ7tVcbu
+#      #domain_ou_path: "OU\=Virtual_Servers,OU\=TinyTechLabUK,DC\=internal,DC\=tinytechlab,DC\=uk"
+#      state: domain
+#    register: domain_state
+#
+#  - ansible.windows.win_reboot:
+#    when: domain_state.reboot_required
+#
 #####################################################################
 #####################################################################

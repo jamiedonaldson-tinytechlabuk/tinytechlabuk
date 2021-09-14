@@ -63,7 +63,7 @@
     ansible_winrm_server_cert_validation: ignore
     ansible_winrm_scheme: http
     windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
-  tasks:
+ # tasks:
   - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
     ansible.windows.win_dns_client:
       adapter_names: 'Ethernet0'

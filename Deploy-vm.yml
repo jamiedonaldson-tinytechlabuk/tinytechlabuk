@@ -33,9 +33,9 @@
         netmask: "{{ vm_netmask }}"
         gateway: "{{ vm_gw }}"
         type: "{{ vm_net_type }}"
-        dns_servers: "{{ vm_dns_1 }}"
-        dns_servers: "{{ vm_dns_2 }}"
-        dns_servers: "{{ vm_dns_3 }}"
+#        dns_servers: "{{ vm_dns_1 }}"
+#        dns_servers: "{{ vm_dns_2 }}"
+#        dns_servers: "{{ vm_dns_3 }}"
         connected: yes
         start_connected: yes
       customization:

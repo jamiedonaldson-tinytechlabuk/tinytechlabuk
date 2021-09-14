@@ -58,6 +58,14 @@
 ######################## Domain Check & Join ########################
 #####################################################################
    
+   - hosts: newVMDeployment
+  vars:
+    locationDist:
+      TinyTechLabUK: TinyTechLabUK
+    location: '{{locationDist[datacenter_name | default("Unknown")] | default("") }}'
+  gather_facts: yes
+  tasks:
+   
    - name: Test if computer is domain joined
     win_shell: |
       (gwmi win32_computersystem).partofdomain

@@ -52,7 +52,7 @@
 
   - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
     ansible.windows.win_dns_client:
-      adapter_names: '*'
+      adapter_names: 'Ethernet0'
       dns_servers:
       - 10.15.0.240
       - 10.15.0.241

@@ -33,6 +33,9 @@
         netmask: "{{ vm_netmask }}"
         gateway: "{{ vm_gw }}"
         type: "{{ vm_net_type }}"
+        dns_servers:
+        - 10.15.0.240
+        - 10.15.0.241
         connected: yes
         start_connected: yes
       customization:

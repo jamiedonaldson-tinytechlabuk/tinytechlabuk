@@ -50,6 +50,6 @@
 #        domainadmin: 'svcacctj@internal.tinytechlab.uk'
 #        domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'
 #       password: '{{ "WORKGROUP_Administrator") }}'
-        runonce:
+      runonce:
           - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon

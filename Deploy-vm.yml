@@ -54,13 +54,14 @@
   - hosts: localhost
   gather_facts: no
   vars:
-    ansible_user: 'administrator@internal.tinytechlab.uk'
-    ansible_password: 'D0n4ld50n20!9D0n4ld50n20!9'
+#    ansible_user: 'administrator@internal.tinytechlab.uk'
+#    ansible_password: 'D0n4ld50n20!9D0n4ld50n20!9'
     ansible_port: 5985
-    ansible_winrm_transport: CredSSP
+#    ansible_winrm_transport: CredSSP
     ansible_connection: winrm
     ansible_winrm_server_cert_validation: ignore
     ansible_winrm_scheme: http
+#    ansible_winrm_credssp_disable_tlsv1_2: true
     windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
   tasks:
   - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file

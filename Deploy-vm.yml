@@ -42,10 +42,10 @@
         autologon: true
         autologoncount: 2
         hostname: "{{ vm_hostname }}"
-        dns_servers:
-        - "{{ vm_dns_1 }}"
-        - "{{ vm_dns_2 }}"
-        - "{{ vm_dns_3 }}"
+#        dns_servers:
+#        - "{{ vm_dns_1 }}"
+#        - "{{ vm_dns_2 }}"
+#        - "{{ vm_dns_3 }}"
 #        joindomain: 'internal.tinytechlab.uk'
 #        domainadmin: 'svcacctj@internal.tinytechlab.uk'
 #        domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'

@@ -57,66 +57,24 @@
 #####################################################################
 ######################## Domain Check & Join ########################
 #####################################################################
-   
-   - hosts: newVMDeployment
-  vars:
-    locationDist:
-      TinyTechLabUK: TinyTechLabUK
-    location: '{{locationDist[datacenter_name | default("Unknown")] | default("") }}'
-  gather_facts: yes
+# host should be a member of domain ansible.vagrant; module will ensure the hostname is mydomainclient
+# and will use the passed credentials to join domain if necessary.
+# Ansible connection should use local credentials if possible.
+# If a reboot is required, the second task will trigger one and wait until the host is available.
+- hosts: winclient
+  gather_facts: no
   tasks:
-   
-   - name: Test if computer is domain joined
-    win_shell: |
-      (gwmi win32_computersystem).partofdomain
-    register: isDomainJoined
-    when: join_domain == "YES"
-    
-  - name: Set fact for if computer is domain joined
-    set_fact:
-      domain_joined: "{{ isDomainJoined.stdout | regex_replace('(\\r\\n)','') }}"
-    when: join_domain == "YES"
-    
-  - name: Report that computer is domain joined
-    debug:
-      msg: "Computer is already joined to the domain."
-    when: domain_joined == true and join_domain == "YES"
-    
-  - name: Report that computer will be joined to the domain.
-    debug:
-      msg: "Computer is not joined to any domain, joining now.."
-    when: domain_joined == false and join_domain == "YES"
-   
-  - name: Join Domain
-    win_shell: |
-      netdom join $env:computername /domain:internal.tinytechlab.uk /UserD:{{ lookup("env", " Domain_Join_Account_Username") }} /PasswordD:{{ lookup("env", " Domain_Join_Account_Username") }} /ou:"OU\=virtual_servers,OU\=tinytechlabuk,DC\=internal,DC\=tinytechlab,DC\=uk"
-    when: domain_joined == false and join_domain == "YES"
-    
-  - name: Report that machine will be rebooted
-    debug:
-      msg: "Rebooting computer now.."
-    when: domain_joined == false and join_domain == "YES"
-      
-  - name: Reboot machine after domain join
-    win_reboot:
-      reboot_timeout: 3600
-    when: domain_joined == false and join_domain == "YES"
-    
-  - name: Test if computer is domain joined after reboot
-    win_shell: |
-      (gwmi win32_computersystem).partofdomain
-    register: isDomainJoined
-    when: domain_joined == false and join_domain == "YES"
-    
-  - name: Set fact for if computer is domain joined
-    set_fact:
-      domain_joined: "{{ isDomainJoined.stdout | regex_replace('(\\r\\n)','') }}"
-    when: domain_joined == false and join_domain == "YES"
-    
-  - name: Report that join domain has failed.
-    debug:
-      msg: "Domain Join has failed. Please check logs."
-    when: domain_joined == false and join_domain == "YES"
-    
+  - ansible.windows.win_domain_membership:
+      dns_domain_name: 'internal.tinytechlab.uk'
+      hostname: "{{ vm_hostname }}"
+      domain_admin_user: svcacctj@internal.tinytechlab.uk
+      domain_admin_password: wgqGG3ALqnjDaQ7tVcbu
+      domain_ou_path: "OU=Windows,OU=Servers,DC=ansible,DC=vagrant"
+      state: domain
+    register: domain_state
+
+  - ansible.windows.win_reboot:
+    when: domain_state.reboot_required
+
 #####################################################################
 #####################################################################

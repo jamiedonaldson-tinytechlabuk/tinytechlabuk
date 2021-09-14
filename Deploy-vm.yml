@@ -46,9 +46,9 @@
         - "{{ vm_dns_1 }}"
         - "{{ vm_dns_2 }}"
         - "{{ vm_dns_3 }}"
-        joindomain: 'internal.tinytechlab.uk'
-        domainadmin: 'svcacctj@internal.tinytechlab.uk'
-        domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'
+#        joindomain: 'internal.tinytechlab.uk'
+#        domainadmin: 'svcacctj@internal.tinytechlab.uk'
+#        domainadminpassword: 'wgqGG3ALqnjDaQ7tVcbu'
 #       password: '{{ "WORKGROUP_Administrator") }}'
         runonce:
           - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP

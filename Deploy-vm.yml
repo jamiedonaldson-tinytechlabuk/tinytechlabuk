@@ -43,15 +43,19 @@
           - powershell.exe -ExecutionPolicy Unrestricted -File C:\Scripts\Ansible\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert -EnableCredSSP
       state: poweredon
 
-#- name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
-#  ansible.windows.win_dns_client:
-#    adapter_names: '*'
-#    dns_servers:
-#    - 10.15.0.240
-#    - 10.15.0.241
-#    - 10.10.192.240
-#    log_path: C:\logs\dns_log.txt
-#
+#####################################################################
+######################## Setting DNS Servers ########################
+#####################################################################
+
+  - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+    ansible.windows.win_dns_client:
+      adapter_names: '*'
+      dns_servers:
+      - 10.15.0.240
+      - 10.15.0.241
+      - 10.10.192.240
+      log_path: C:\logs\dns_log.txt
+
 #####################################################################
 ######################## Domain Check & Join ########################
 #####################################################################

@@ -65,7 +65,7 @@
       - 10.15.0.241
       - 10.10.192.240
       log_path: C:\logs\dns_log.txt
-      delegate_to: ttl-ansiblenode.internal.tinytechlab.uk
+      delegate_to: "{{ windows_runner }}"
 
 #####################################################################
 ######################## Domain Check & Join ########################
@@ -88,6 +88,7 @@
 #
 #  - ansible.windows.win_reboot:
 #    when: domain_state.reboot_required
+#      delegate_to: "{{ windows_runner }}"
 #
 #####################################################################
 #####################################################################

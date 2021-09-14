@@ -55,10 +55,10 @@
   - hosts: localhost
   gather_facts: no
   vars:
-    ansible_user: 'jdadmin@internal.tinytechlab.uk'
-    ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
+#    ansible_user: 'jdadmin@internal.tinytechlab.uk'
+#    ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
     ansible_port: 5986
-    ansible_winrm_transport: kerberos
+    ansible_winrm_transport: credssp
     ansible_connection: winrm
     ansible_winrm_server_cert_validation: ignore
     ansible_winrm_scheme: http

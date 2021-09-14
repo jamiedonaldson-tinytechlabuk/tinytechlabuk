@@ -1,6 +1,11 @@
 ---
 - hosts: localhost
   gather_facts: no
+  vars:
+    ansible_port: 5985
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+    windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
   tasks:
 
 #####################################################################
@@ -51,17 +56,17 @@
 
 #####################################################################
 ######################## Setting DNS Servers ########################
-#####################################################################
-#
-#  - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
-#    ansible.windows.win_dns_client:
-#      adapter_names: 'Ethernet0'
-#      dns_servers:
-#      - 10.15.0.240
-#      - 10.15.0.241
-#      - 10.10.192.240
-#      log_path: C:\logs\dns_log.txt
-#
+######################################################################
+  - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+    ansible.windows.win_dns_client:
+      adapter_names: 'Ethernet0'
+      dns_servers:
+      - 10.15.0.240
+      - 10.15.0.241
+      - 10.10.192.240
+      log_path: C:\logs\dns_log.txt
+      delegate_to: ttl-ansiblenode.internal.tinytechlab.uk
+
 #####################################################################
 ######################## Domain Check & Join ########################
 #####################################################################

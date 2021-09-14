@@ -52,7 +52,7 @@
 ######################## Setting DNS Servers ########################
 ######################################################################
 
-  - hosts: localhost
+#  - hosts: localhost
   gather_facts: no
   vars:
     ansible_user: 'jdadmin@internal.tinytechlab.uk'

@@ -98,3 +98,10 @@
 #
 #####################################################################
 #####################################################################
+#
+#     KMS Activations #
+#
+# slmgr /skms kms.internal.tinytechlab.uk
+# slmgr.vbs /cpky
+# slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
+# slmgr.vbs /ato

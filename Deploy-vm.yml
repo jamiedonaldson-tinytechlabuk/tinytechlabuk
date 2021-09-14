@@ -1,11 +1,11 @@
 ---
 - hosts: localhost
   gather_facts: no
-  vars:
-    ansible_port: 5985
-    ansible_connection: winrm
-    ansible_winrm_server_cert_validation: ignore
-    windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
+#  vars:
+#    ansible_port: 5985
+#    ansible_connection: winrm
+#    ansible_winrm_server_cert_validation: ignore
+#    windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
   tasks:
 
 #####################################################################
@@ -57,6 +57,13 @@
 #####################################################################
 ######################## Setting DNS Servers ########################
 ######################################################################
+
+  vars:
+    ansible_port: 5985
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+    windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
+
   - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
     ansible.windows.win_dns_client:
       adapter_names: 'Ethernet0'

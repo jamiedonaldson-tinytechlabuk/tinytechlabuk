@@ -51,12 +51,13 @@
 #####################################################################
 ######################## Setting DNS Servers ########################
 ######################################################################
+
   - hosts: localhost
   gather_facts: no
   vars:
     ansible_user: 'administrator@internal.tinytechlab.uk'
     ansible_password: 'D0n4ld50n20!9D0n4ld50n20!9'
-    ansible_port: 5985
+    ansible_port: 5986
     ansible_winrm_transport: kerberos
     ansible_connection: winrm
     ansible_winrm_server_cert_validation: ignore

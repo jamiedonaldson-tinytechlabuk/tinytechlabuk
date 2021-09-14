@@ -52,7 +52,7 @@
 ######################## Setting DNS Servers ########################
 ######################################################################
 
-  gather_facts: no
+#  gather_facts: no
   vars:
     ansible_user: 'jdadmin@internal.tinytechlab.uk'
     ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
@@ -63,9 +63,9 @@
     ansible_winrm_scheme: http
     windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
 
-#- hosts: "{{ windows_runner }}"
-#  tasks:
-#  - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+- hosts: localhost
+  tasks:
+  - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
     ansible.windows.win_dns_client:
       adapter_names: 'Ethernet0'
       dns_servers:

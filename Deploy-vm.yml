@@ -87,7 +87,7 @@
     delegate_to: localhost
     when: vm_net_type == "dhcp"
 
-  - name: Add host to group
+  - name: Add host to group in playbook memory
     add_host:
       hostname: "{{ vm_ip }}{{ result.instance.ipv4 }}"
       groups:

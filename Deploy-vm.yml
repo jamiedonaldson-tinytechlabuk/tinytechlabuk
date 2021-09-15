@@ -173,6 +173,53 @@
 
   - ansible.windows.win_reboot:
     when: domain_state.reboot_required
+    reboot_timeout: 3600
+    delegate_to: "{{ vm_ip }}"
+
+#####################################################################
+#####################################################################
+
+#####################################################################
+################# Post configuration process ########################
+#####################################################################
+
+  - name: Update DNS Search Suffix List
+    ansible.windows.win_regedit:
+      path: HKLM:\System\CurrentControlSet\Services\TCPIP\Parameters
+      name: SearchList
+      data: 'internal.tinytechlab.uk,tinytechlab.uk'
+      type: expandstring
+
+  - name: Disable IPv6 on all interfaces
+    community.windows.win_net_adapter_feature:
+      interface: '*'
+      state: disabled
+      component_id:
+      - ms_tcpip6
+      
+  - name: Disable LMHost Lookup
+    ansible.windows.win_regedit:
+      path: HKLM:\System\CurrentControlSet\Services\NetBT\Parameters
+      name: EnableLMHOSTS
+      data: 0
+      type: dword
+      
+  - name: Disable Power Saving on NICs
+    win_shell: |
+      $nics = Get-WmiObject Win32_NetworkAdapter -filter "AdapterTypeID = '0' AND PhysicalAdapter = 'true'"
+      ForEach ($nic in $nics) {
+        $nicName = $nic.Name
+        Show-Step -Msg "-Disabling NIC Power Save on " -Step $nicName
+        Try {
+            $nicPower = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi | Where-Object {$_.instancename -match [regex]::escape($nic.PNPDeviceID) }
+            $nicPower.Enable = $False
+            $nicPower.psbase.Put() | out-null
+            Write-Output "Success"
+        }
+        Catch {
+            Write-Output "Failed"
+        }
+      }
     delegate_to: "{{ vm_ip }}"
 
 #####################################################################
@@ -185,3 +232,7 @@
       reboot: yes
       log_path: C:\ansible_wu.txt
     delegate_to: "{{ vm_ip }}"
+
+#####################################################################
+#####################################################################
+

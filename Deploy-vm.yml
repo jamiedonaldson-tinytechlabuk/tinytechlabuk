@@ -7,6 +7,7 @@
 #################### Deploy from VMware Template ####################
 #####################################################################
   - name: Clone the template with static network
+    command: hostname
     vmware_guest:
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'
@@ -52,7 +53,6 @@
 ######################## Setting DNS Servers ########################
 ######################################################################
 
-#  gather_facts: no
   vars:
     ansible_user: 'jdadmin@internal.tinytechlab.uk'
     ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
@@ -66,6 +66,7 @@
 - hosts: localhost
   tasks:
   - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+    command: "{{ windows_runner }}
     ansible.windows.win_dns_client:
       adapter_names: 'Ethernet0'
       dns_servers:

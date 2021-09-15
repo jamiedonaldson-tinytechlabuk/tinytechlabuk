@@ -189,21 +189,24 @@
       name: SearchList
       data: 'internal.tinytechlab.uk,tinytechlab.uk'
       type: expandstring
-
+    delegate_to: "{{ vm_ip }}"
+    
   - name: Disable IPv6 on all interfaces
     community.windows.win_net_adapter_feature:
       interface: '*'
       state: disabled
       component_id:
       - ms_tcpip6
-      
+    delegate_to: "{{ vm_ip }}"
+    
   - name: Disable LMHost Lookup
     ansible.windows.win_regedit:
       path: HKLM:\System\CurrentControlSet\Services\NetBT\Parameters
       name: EnableLMHOSTS
       data: 0
       type: dword
-      
+    delegate_to: "{{ vm_ip }}"
+    
   - name: Disable Power Saving on NICs
     win_shell: |
       $nics = Get-WmiObject Win32_NetworkAdapter -filter "AdapterTypeID = '0' AND PhysicalAdapter = 'true'"
@@ -235,4 +238,3 @@
 
 #####################################################################
 #####################################################################
-

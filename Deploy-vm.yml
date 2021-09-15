@@ -52,23 +52,23 @@
 #####################################################################
 ######################## Setting DNS Servers ########################
 ######################################################################
-
-  vars:
-    ansible_user: 'jdadmin@internal.tinytechlab.uk'
-    ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
-    ansible_port: 5985
-    ansible_winrm_transport: credssp
-    ansible_connection: winrm
-    ansible_winrm_server_cert_validation: ignore
-    ansible_winrm_scheme: http
-    windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
+  - name: Setting up Variables for Windows Node
+    vars:
+    	ansible_user: 'jdadmin@internal.tinytechlab.uk'
+    	ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
+    	ansible_port: 5985
+    	ansible_winrm_transport: credssp
+    	ansible_connection: winrm
+    	ansible_winrm_server_cert_validation: ignore
+    	ansible_winrm_scheme: http
+    	windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
 
 - hosts: localhost
   tasks:
   - name: Setup and activate Windows KMS
     command: "{{ windows_runner }}
     win_shell
-		  slmgr /skms kms.internal.tinytechlab.uk
-		  slmgr.vbs /cpky
-		  slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
-		  slmgr.vbs /ato
+      cscript C:\Windows\System32\slmgr.vbs /skms kms.internal.tinytechlab.uk
+      cscript C:\Windows\System32\slmgr.vbs /cpky
+      cscript C:\Windows\System32\slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
+      cscript C:\Windows\System32\slmgr.vbss /ato

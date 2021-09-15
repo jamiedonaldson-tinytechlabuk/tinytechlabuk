@@ -50,7 +50,7 @@
     delegate_to: localhost
     when: vm_net_type == "static"
     
-    - name: Clone the template with dhcp network
+  - name: Clone the template with dhcp network
     vmware_guest:
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'

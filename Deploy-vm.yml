@@ -65,6 +65,7 @@
 
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
   - name: Setup and activate Windows KMS
     command: "{{ windows_runner }}

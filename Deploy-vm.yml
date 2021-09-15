@@ -106,7 +106,6 @@
   - name: Add host to group (static)
     add_host:
      hostname: "{{ vm_ip }}"
-     name: "{{ vm_hostname }}"
      groups:
      - newVMDeployment
     when: vm_net_type == "static"
@@ -114,7 +113,6 @@
   - name: Add host to group (DHCP)
     add_host:
      hostname: "{{ build_dhcp.instance.ipv4 }}"
-     name: "{{ vm_hostname }}"
      groups:
      - newVMDeployment
     when: vm_net_type == "dhcp"

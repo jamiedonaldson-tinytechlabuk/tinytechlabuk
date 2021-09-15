@@ -106,6 +106,7 @@
   - name: Add host to group (static)
     add_host:
      hostname: "{{ vm_ip }}"
+     name: "{{ vm_hostname }}"
      groups:
      - newVMDeployment
     when: vm_net_type == "static"
@@ -113,6 +114,7 @@
   - name: Add host to group (DHCP)
     add_host:
      hostname: "{{ build_dhcp.instance.ipv4 }}"
+     name: "{{ vm_hostname }}"
      groups:
      - newVMDeployment
     when: vm_net_type == "dhcp"
@@ -156,6 +158,24 @@
 
 #####################################################################
 #####################################################################
+
+#####################################################################
+######################## Domain Check & Join ########################
+#####################################################################
+
+  - name: Adding VM to Domain
+    ansible.windows.win_domain_membership:
+      dns_domain_name: internal.tinytechlab.uk
+      hostname: "{{ vm_hostname }}"
+      domain_admin_user: svcacctj@internal.tinytechlab.uk
+      domain_admin_password: wgqGG3ALqnjDaQ7tVcbu
+      domain_ou_path: "OU\=Virtual_Servers,OU\=TinyTechLabUK,DC\=internal,DC\=tinytechlab,DC\=uk"
+      state: domain
+    register: domain_state
+
+  - ansible.windows.win_reboot:
+    when: domain_state.reboot_required
+    delegate_to: "{{ vm_ip }}"
 
 #####################################################################
 ################### Windows Patching process ########################

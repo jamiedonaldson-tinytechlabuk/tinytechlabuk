@@ -49,6 +49,41 @@
     delegate_to: localhost
     
 #####################################################################
+######################## Add to Ansible Host Group###################
+##################################################################### 
+
+  - name: Add host to group (static)
+    add_host:
+     hostname: "{{ vm_ip }}"
+     groups:
+     - newVMDeployment
+    when: vm_net_type == "static"
+   
+  - name: Add host to group (DHCP)
+    add_host:
+     hostname: "{{ build_dhcp.instance.ipv4 }}"
+     groups:
+     - newVMDeployment
+    when: vm_net_type == "dhcp"
+    
+  - name: Sleep for 60 seconds to give VM ample time to become reachable
+    wait_for:
+      timeout: 60
+
+#####################################################################
+#####################################################################
+
+#####################################################################
+#################### newVMDeployment Play Configuration #############
+#####################################################################
+
+- hosts: newVMDeployment
+  vars:
+    windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
+    gather_facts: yes
+    task: 
+
+#####################################################################
 ######################## Setting DNS Servers ########################
 #####################################################################
 

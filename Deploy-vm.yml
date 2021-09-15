@@ -54,8 +54,6 @@
 ######################################################################
   - name: Setting up Variables for Windows Node
     vars:
-    	ansible_user: 'jdadmin@internal.tinytechlab.uk'
-    	ansible_password: 'D0n4!d50n2020D0n4!d50n2020'
     	ansible_port: 5985
     	ansible_winrm_transport: credssp
     	ansible_connection: winrm

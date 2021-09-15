@@ -81,7 +81,7 @@
   vars:
     windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
     gather_facts: yes
-    task: 
+    tasks: 
 
 #####################################################################
 ######################## Setting DNS Servers ########################

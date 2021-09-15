@@ -166,5 +166,6 @@
     register: domain_state
 
   - name: Reboot a slow machine that might have lots of updates to apply
-    ansible.windows.win_reboot:
+  - ansible.windows.win_reboot:
+    when: domain_state.reboot_required
     delegate_to: "{{ vm_ip }}"

@@ -11,20 +11,22 @@
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'
       password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
-      validate_certs: False
+      validate_certs: false
       name: "{{ vm_hostname }}"
       template: "{{ template_name }}"
       datacenter: "TinyTechLabUK"
       folder: /Ansible_Builds
       esxi_hostname: '{{ esxi_hostname }}'
       datastore: "{{ vm_datastore }}"
+       disk:
+         type: thin
       hardware:
         memory_mb: "{{ vm_memory }}"
         num_cpus: "{{ vm_cpus }}"
         scsi: paravirtual
-        hotadd_cpu: True
-        hotremove_cpu: True
-        hotadd_memory: false
+        hotadd_cpu: true
+        hotremove_cpu: true
+        hotadd_memory: true
         boot_firmware: "efi"
       networks:
       - name: "{{ vm_network }}"
@@ -55,7 +57,7 @@
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'
       password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
-      validate_certs: False
+      validate_certs: false
       name: "{{ vm_hostname }}"
       template: "{{ template_name }}"
       datacenter: "TinyTechLabUK"
@@ -66,9 +68,9 @@
         memory_mb: "{{ vm_memory }}"
         num_cpus: "{{ vm_cpus }}"
         scsi: paravirtual
-        hotadd_cpu: True
-        hotremove_cpu: True
-        hotadd_memory: True
+        hotadd_cpu: true
+        hotremove_cpu: true
+        hotadd_memory: true
         boot_firmware: "efi"
       networks:
       - name: "{{ vm_network }}" 

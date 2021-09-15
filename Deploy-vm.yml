@@ -65,13 +65,10 @@
 
 - hosts: localhost
   tasks:
-  - name: Set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+  - name: Setup and activate Windows KMS
     command: "{{ windows_runner }}
-    ansible.windows.win_dns_client:
-      adapter_names: 'Ethernet0'
-      dns_servers:
-      - 10.15.0.240
-      - 10.15.0.241
-      - 10.10.192.240
-    delegate_to: - '{{ windows_runner }}'
-
+    win_shell
+		  slmgr /skms kms.internal.tinytechlab.uk
+		  slmgr.vbs /cpky
+		  slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
+		  slmgr.vbs /ato

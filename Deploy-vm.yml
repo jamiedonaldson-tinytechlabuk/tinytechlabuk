@@ -35,6 +35,7 @@
         dns_servers:
         - 10.15.0.240
         - 10.15.0.241
+        - 10.10.192.240
         connected: yes
         start_connected: yes
       customization:

@@ -1,6 +1,12 @@
 ---
 - hosts: localhost
   gather_facts: no
+  vars:
+    ansible_port: 5985
+    ansible_winrm_transport: credssp
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+    ansible_winrm_scheme: http
   tasks:
 
 #####################################################################
@@ -47,3 +53,15 @@
       wait_for_ip_address: yes
       wait_for_customization: yes
     delegate_to: localhost
+    
+#####################################################################
+######################## Setting DNS Servers ########################
+#####################################################################
+
+  - name: Setup and activate Windows KMS
+    win_shell: |
+      cscript C:\Windows\System32\slmgr.vbs /skms kms.internal.tinytechlab.uk
+      cscript C:\Windows\System32\slmgr.vbs /cpky
+      cscript C:\Windows\System32\slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
+      cscript C:\Windows\System32\slmgr.vbss /ato
+    delegate_to: "{{ vm_hostname }}"

@@ -72,7 +72,8 @@
         boot_firmware: "efi"
       networks:
       - name: "{{ vm_network }}" 
-        type: "{{ vm_net_type }}"
+        type: "{{ vm_net_type }}"       
+        dns_servers: "{{ vm_dns | default(omit) }}"
         connected: yes
         start_connected: yes
       customization:
@@ -84,6 +85,7 @@
       state: poweredon
       wait_for_ip_address: yes
       wait_for_customization: yes
+    register: result
     delegate_to: localhost
     when: vm_net_type == "dhcp"
 

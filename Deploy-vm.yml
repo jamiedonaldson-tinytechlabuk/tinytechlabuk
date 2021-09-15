@@ -167,4 +167,4 @@
 
   - ansible.windows.win_reboot:
     when: domain_state.reboot_required
-    delegate_to: "{{ vm_ip }}"
+  delegate_to: "{{ vm_ip }}"

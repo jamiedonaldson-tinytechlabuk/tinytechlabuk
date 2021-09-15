@@ -7,7 +7,6 @@
 #################### Deploy from VMware Template ####################
 #####################################################################
   - name: Clone the template with static network
-    command: hostname
     vmware_guest:
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'

@@ -93,4 +93,4 @@
       cscript C:\Windows\System32\slmgr.vbs /cpky
       cscript C:\Windows\System32\slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
       cscript C:\Windows\System32\slmgr.vbss /ato
-    delegate_to: "{{ vm_hostname }}"
+    delegate_to: "{{ vm_ip }}"

@@ -159,12 +159,12 @@
     ansible.windows.win_domain_membership:
       dns_domain_name: internal.tinytechlab.uk
       hostname: "{{ vm_hostname }}"
-      domain_admin_user: {{ lookup(env, "ANSIBLE_NET_USERNAME" }}'
-      domain_admin_password: {{ lookup("env", "ANSIBLE_NET_PASSWORD" }}
+      domain_admin_user: svcacctj@internal.tinytechlab.uk
+      domain_admin_password: wgqGG3ALqnjDaQ7tVcbu
       domain_ou_path: "OU=Virtual_Servers,OU=TinyTechLabUK,DC=internal,DC=tinytechlab,DC=uk"
       state: domain
     register: domain_state
 
   - ansible.windows.win_reboot:
     when: domain_state.reboot_required
-  - delegate_to: "{{ vm_ip }}"
+    delegate_to: "{{ vm_ip }}"

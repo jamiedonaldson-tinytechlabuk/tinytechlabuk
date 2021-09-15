@@ -18,8 +18,6 @@
       folder: /Ansible_Builds
       esxi_hostname: '{{ esxi_hostname }}'
       datastore: "{{ vm_datastore }}"
-      disk:
-        type: thin
       hardware:
         memory_mb: "{{ vm_memory }}"
         num_cpus: "{{ vm_cpus }}"

@@ -87,10 +87,10 @@
 ######################## Setting DNS Servers ########################
 #####################################################################
 
-  - name: Setup and activate Windows KMS
-    win_shell: |
-      cscript C:\Windows\System32\slmgr.vbs /skms kms.internal.tinytechlab.uk
-      cscript C:\Windows\System32\slmgr.vbs /cpky
-      cscript C:\Windows\System32\slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
-      cscript C:\Windows\System32\slmgr.vbss /ato
-    delegate_to: "{{ vm_ip }}"
+ - name: Setup and activate Windows Server via KMS Server
+   win_shell: |
+     cscript C:\Windows\System32\slmgr.vbs /skms kms.internal.tinytechlab.uk
+     cscript C:\Windows\System32\slmgr.vbs /cpky
+     cscript C:\Windows\System32\slmgr.vbs /ipk N69G4-B89J2-4G8F4-WWYCC-J464C
+     cscript C:\Windows\System32\slmgr.vbss /ato
+   delegate_to: "{{ vm_ip }}"

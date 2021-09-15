@@ -173,7 +173,7 @@
 
   - ansible.windows.win_reboot:
     when: domain_state.reboot_required
-    reboot_timeout: 3600
+      reboot_timeout: 3600
     delegate_to: "{{ vm_ip }}"
 
 #####################################################################

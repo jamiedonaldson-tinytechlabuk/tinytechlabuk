@@ -63,6 +63,7 @@
     	ansible_winrm_scheme: http
     	windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
 
+---
 - hosts: localhost
   tasks:
   - name: Setup and activate Windows KMS

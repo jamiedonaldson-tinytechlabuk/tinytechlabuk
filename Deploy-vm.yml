@@ -11,7 +11,7 @@
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'
       password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
-      validate_certs: false
+      validate_certs: False
       name: "{{ vm_hostname }}"
       template: "{{ template_name }}"
       datacenter: "TinyTechLabUK"
@@ -22,9 +22,9 @@
         memory_mb: "{{ vm_memory }}"
         num_cpus: "{{ vm_cpus }}"
         scsi: paravirtual
-        hotadd_cpu: true
-        hotremove_cpu: true
-        hotadd_memory: true
+        hotadd_cpu: True
+        hotremove_cpu: True
+        hotadd_memory: True
         boot_firmware: "efi"
       networks:
       - name: "{{ vm_network }}"
@@ -55,7 +55,7 @@
       hostname: '{{ vcenter }}'
       username: '{{ lookup("env", "VMWARE_USER") }}'
       password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
-      validate_certs: false
+      validate_certs: False
       name: "{{ vm_hostname }}"
       template: "{{ template_name }}"
       datacenter: "TinyTechLabUK"
@@ -66,9 +66,9 @@
         memory_mb: "{{ vm_memory }}"
         num_cpus: "{{ vm_cpus }}"
         scsi: paravirtual
-        hotadd_cpu: true
-        hotremove_cpu: true
-        hotadd_memory: true
+        hotadd_cpu: True
+        hotremove_cpu: True
+        hotadd_memory: True
         boot_firmware: "efi"
       networks:
       - name: "{{ vm_network }}" 
@@ -88,6 +88,12 @@
     register: result
     delegate_to: localhost
     when: vm_net_type == "dhcp"
+
+#  - name: Add host to group in playbook memory
+#    add_host:
+#      hostname: "{{ vm_ip }}{{ result.instance.ipv4 }}"
+#      groups:
+#      - newVMDeployment
       
   - name: Sleep for 60 seconds to give VM ample time to become reachable
     wait_for:
@@ -116,6 +122,9 @@
       timeout: 60
 
 #####################################################################
+#####################################################################
+
+#####################################################################
 #################### newVMDeployment Play Configuration #############
 #####################################################################
 
@@ -131,7 +140,7 @@
     windows_runner: ttl-ansiblenode.internal.tinytechlab.uk
     gather_facts: yes
   tasks: 
-  
+
 #####################################################################
 ######################## Setting DNS Servers ########################
 #####################################################################
@@ -144,6 +153,9 @@
       cscript C:\Windows\System32\slmgr.vbs /ato
       Set-TimeZone "GMT Standard Time"
     delegate_to: "{{ vm_ip }}"
+
+#####################################################################
+#####################################################################
 
 #####################################################################
 ######################## Domain Check & Join ########################
@@ -161,4 +173,15 @@
 
   - ansible.windows.win_reboot:
     when: domain_state.reboot_required
+    delegate_to: "{{ vm_ip }}"
+
+#####################################################################
+################### Windows Patching process ########################
+#####################################################################
+
+  - name: Install all updates and reboot as many times as needed
+    ansible.windows.win_updates:
+      category_names: '*'
+      reboot: yes
+      log_path: C:\ansible_wu.txt
     delegate_to: "{{ vm_ip }}"

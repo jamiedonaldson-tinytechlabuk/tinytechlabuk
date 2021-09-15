@@ -122,9 +122,6 @@
       timeout: 60
 
 #####################################################################
-#####################################################################
-
-#####################################################################
 #################### newVMDeployment Play Configuration #############
 #####################################################################
 
@@ -160,9 +157,6 @@
     delegate_to: "{{ vm_ip }}"
 
 #####################################################################
-#####################################################################
-
-#####################################################################
 ######################## Domain Check & Join ########################
 #####################################################################
 
@@ -170,8 +164,8 @@
     ansible.windows.win_domain_membership:
       dns_domain_name: internal.tinytechlab.uk
       hostname: "{{ hostnameResult }}"
-      domain_admin_user: svcacctj@internal.tinytechlab.uk
-      domain_admin_password: wgqGG3ALqnjDaQ7tVcbu
+      domain_admin_user: {{ lookup("env", "ANSIBLE_NET_USERNAME") }}
+      domain_admin_password: {{ lookup("env", "ANSIBLE_NET_PASSWORD") }}
       domain_ou_path: "OU=Virtual_Servers,OU=TinyTechLabUK,DC=internal,DC=tinytechlab,DC=uk"
       state: domain
     register: domain_state
@@ -180,9 +174,6 @@
     ansible.windows.win_reboot:
       reboot_timeout: 3600
     delegate_to: "{{ vm_ip }}"
-
-#####################################################################
-#####################################################################
 
 #####################################################################
 ################# Post configuration process ########################

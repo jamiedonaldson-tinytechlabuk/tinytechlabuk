@@ -145,7 +145,7 @@
 ######################## Setting DNS Servers ########################
 #####################################################################
 
-  - name: Setup and activate Windows Server via KMS Server
+  - name: Setup and activate Windows Server via KMS Server and Time Zone
     win_shell: |
       cscript C:\Windows\System32\slmgr.vbs /skms kms.internal.tinytechlab.uk
       cscript C:\Windows\System32\slmgr.vbs /cpky

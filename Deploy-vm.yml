@@ -188,7 +188,7 @@
       
   - name: To delete mapped U drive connectoin
     ansible.windows.win_command: |
-    net use U: /d  
+      net use U: /d  
     delegate_to: "{{ vm_ip }}"
     
 #####################################################################

@@ -183,8 +183,16 @@
       
   - name: Create a mapped drive that requires authentication
     win_shell: |
-      NET USE U: \\TTL-FILE-1\Software$\Deploy-VM\Apps /u:INTERNAL\Install Password2021 
-      robocopy U:\ C:\Temp\Install\ /XD * /Z /MIR /LOG+:c:\temp\log.log
+      $IPCServer = "{{ vm_ip }}"
+      $IPCUser = “internal\install”
+      $IPCPass = “Password2019”
+      $sourceDir = “\\TTL-FILE-1\Software$\Deploy-VM\Apps”
+      $destinationDir = “C:\Temp\Install\”
+      #Create the IPC$ connection
+      net use “\\$IPCHost\IPC$” /u:$IPCUser $IPCPass
+      robocopy $sourceDir $destinationDir /s /r:2 /w:2 /xo
+      #to delete the IPC$ connectoin
+      net use “\\$IPCHost\IPC$” /D 
     delegate_to: "{{ vm_ip }}"
     
 #####################################################################

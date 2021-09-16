@@ -182,14 +182,10 @@
     delegate_to: "{{ vm_ip }}"
     
   - name: Copy necessary files
-    win_shell: |
-      $Dir = "\\TTL-FILE-1\Software$\Deploy-VM\Apps"
-      $Username = 'install@internal.tinytechlab.uk'
-      $Password = 'Password2019'
-      New-PSDrive -Name "U" -Root $Dir -PSProvider "FileSystem" -Credential $Credentials
-      if (!(Test-Path D:\Install)) {New-Item C:\Temp\Install -ItemType Directory}
-      Copy-Item -Path U:\Apps -Destination C:\Temp\Install -Recurse
-      Remove-PSDrive -Name "U"
+    community.windows.win_robocopy:
+      src: \\TTL-FILE-1\Software$\Deploy-VM\Apps
+      dest: C:\Temp\Install 
+      recurse: yes
 
 #####################################################################
 ################### Windows Patching process ########################

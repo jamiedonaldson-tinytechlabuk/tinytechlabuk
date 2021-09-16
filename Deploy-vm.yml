@@ -181,13 +181,17 @@
       type: expandstring
     delegate_to: "{{ vm_ip }}"
     
-  - name: Disable IPv6 on all interfaces
-    community.windows.win_net_adapter_feature:
-      interface: '*'
-      state: disabled
-      component_id:
-        - ms_tcpip6
-    delegate_to: "{{ vm_ip }}"
+  - name: Copy necessary files
+    win_shell: |
+      $Dir = "\\TTL-FILE-1\Software$\Deploy-VM\Apps"
+      $Username = '{{ lookup("env", "ANSIBLE_NET_USERNAME" }}'
+      $Password = '{{ lookup("env", "ANSIBLE_NET_PASSWORD" }}'
+      [securestring]$Password = ConvertTo-SecureString $Password -AsPlainText -Force
+      [pscredential]$Credentials = New-Object System.Management.Automation.PSCredential ($Username, $Password)
+      New-PSDrive -Name "U" -Root $Dir -PSProvider "FileSystem" -Credential $Credentials
+      if (!(Test-Path D:\Install)) {New-Item C:\Temp\Install -ItemType Directory}
+      Copy-Item -Path U:\Apps -Destination C:\Temp\Install -Recurse
+      Remove-PSDrive -Name "U"
 
 #####################################################################
 ################### Windows Patching process ########################

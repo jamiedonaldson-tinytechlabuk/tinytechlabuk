@@ -182,21 +182,9 @@
     delegate_to: "{{ vm_ip }}"
       
   - name: Create a mapped drive that requires authentication
-    community.windows.win_mapped_drive:
-      letter: U
-      path: \\TTL-FILE-1\Software$\Deploy-VM\Apps
-      state: present
-    vars:
-    # become is required to save and retrieve the credentials in the tasks
-      ansible_become: yes
-      ansible_become_method: runas
-      ansible_become_user: '{{ ansible_user }}'
-      ansible_become_pass: '{{ ansible_password }}'
-    delegate_to: "{{ vm_ip }}"
-    
-  - name: Copy necessary files  
-    win_shell:
-      Robocopy  U:\ C:\Temp\Install 
+    win_shell: |
+      NET USE \\TTL-FILE-1\Software$\Deploy-VM\Apps /u:INTERNAL\Install Password2021 
+      robocopy U:\ C:\Temp\Install\ /XD * /Z /MIR /LOG+:c:\temp\log.log
     delegate_to: "{{ vm_ip }}"
     
 #####################################################################

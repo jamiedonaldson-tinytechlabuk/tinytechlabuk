@@ -184,8 +184,8 @@
   - name: Copy necessary files
     win_shell: |
       $Dir = "\\TTL-FILE-1\Software$\Deploy-VM\Apps"
-      $Username = '{{ lookup("env", "ANSIBLE_NET_USERNAME" }}'
-      $Password = '{{ lookup("env", "ANSIBLE_NET_PASSWORD" }}'
+      $Username = 'install@internal.tinytechlab.uk'
+      $Password = 'Password2019'
       [securestring]$Password = ConvertTo-SecureString $Password -AsPlainText -Force
       [pscredential]$Credentials = New-Object System.Management.Automation.PSCredential ($Username, $Password)
       New-PSDrive -Name "U" -Root $Dir -PSProvider "FileSystem" -Credential $Credentials

@@ -183,7 +183,7 @@
       
   - name: Create a mapped drive that requires authentication
     ansible.windows.win_command: |
-      net use U: \\TTL-FILE-1\Software$\Deploy-VM\Apps /user:INTERNAL\install Password2019
+      C:\Scripts\Ansible\AnsibleMapUDrive.bat
       robocopy U:\ C:\Temp\Install /s /r:2 /w:2 /xo
       
   - name: To delete mapped U drive connectoin

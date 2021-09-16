@@ -182,17 +182,13 @@
     delegate_to: "{{ vm_ip }}"
       
   - name: Create a mapped drive that requires authentication
-    win_shell: |
-      $IPCServer = "{{ vm_ip }}"
-      $IPCUser = “internal\install”
-      $IPCPass = “Password2019”
-      $sourceDir = “\\TTL-FILE-1\Software$\Deploy-VM\Apps”
-      $destinationDir = “C:\Temp\Install\”
-      #Create the IPC$ connection
-      net use “\\$IPCHost\IPC$” /u:$IPCUser $IPCPass
-      robocopy $sourceDir $destinationDir /s /r:2 /w:2 /xo
-      #to delete the IPC$ connectoin
-      net use “\\$IPCHost\IPC$” /D 
+    ansible.windows.win_command: |
+      net use U: \\TTL-FILE-1\Software$\Deploy-VM\Apps /user:INTERNAL\install Password2019
+      robocopy U:\ C:\Temp\Install /s /r:2 /w:2 /xo
+      
+  - name: To delete mapped U drive connectoin
+    ansible.windows.win_command: |
+    net use U: /d  
     delegate_to: "{{ vm_ip }}"
     
 #####################################################################

@@ -181,12 +181,11 @@
       type: expandstring
     delegate_to: "{{ vm_ip }}"
     
-  - name: Copy necessary files
-    community.windows.win_robocopy:
-      src: \\TTL-FILE-1\Software$\Deploy-VM\Apps
-      dest: C:\Temp\Install 
-      recurse: yes
-
+  - name: Copy necessary files  
+    win_shell:
+      Robocopy  \\TTL-FILE-1\Software$\Deploy-VM\Apps C:\Temp\Install 
+    delegate_to: "{{ vm_ip }}"
+    
 #####################################################################
 ################### Windows Patching process ########################
 #####################################################################

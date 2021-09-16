@@ -183,7 +183,7 @@
       
   - name: Create a mapped drive that requires authentication
     win_shell: |
-      NET USE \\TTL-FILE-1\Software$\Deploy-VM\Apps /u:INTERNAL\Install Password2021 
+      NET USE U: \\TTL-FILE-1\Software$\Deploy-VM\Apps /u:INTERNAL\Install Password2021 
       robocopy U:\ C:\Temp\Install\ /XD * /Z /MIR /LOG+:c:\temp\log.log
     delegate_to: "{{ vm_ip }}"
     

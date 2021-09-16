@@ -184,12 +184,7 @@
   - name: Create a mapped drive that requires authentication
     ansible.windows.win_command: |
       C:\Scripts\Ansible\AnsibleMapUDrive.bat
-      robocopy U:\ C:\Temp\Install /s /r:2 /w:2 /xo
-      
-  - name: To delete mapped U drive connectoin
-    ansible.windows.win_command: |
-      net use U: /d  
-    delegate_to: "{{ vm_ip }}"
+      C:\Scripts\Ansible\AnsibleRoboCopy.bat
     
 #####################################################################
 ################### Windows Patching process ########################

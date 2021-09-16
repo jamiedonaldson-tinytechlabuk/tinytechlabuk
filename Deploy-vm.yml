@@ -183,10 +183,10 @@
     
   - name: Disable IPv6 on all interfaces
     community.windows.win_net_adapter_feature:
-      interface: 'Ethernet0'
+      interface: '*'
       state: disabled
       component_id:
-      - ms_tcpip6
+        - ms_tcpip6
     delegate_to: "{{ vm_ip }}"
 
 #####################################################################

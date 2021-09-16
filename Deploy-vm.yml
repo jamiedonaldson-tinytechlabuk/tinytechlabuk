@@ -180,6 +180,14 @@
       data: 'internal.tinytechlab.uk,tinytechlab.uk'
       type: expandstring
     delegate_to: "{{ vm_ip }}"
+    
+  - name: Disable IPv6 on all interfaces
+    community.windows.win_net_adapter_feature:
+      interface: 'Ethernet0'
+      state: disabled
+      component_id:
+      - ms_tcpip6
+    delegate_to: "{{ vm_ip }}"
 
 #####################################################################
 ################### Windows Patching process ########################
